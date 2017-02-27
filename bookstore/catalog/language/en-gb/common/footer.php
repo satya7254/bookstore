@@ -14,4 +14,4 @@ $_['text_account']      = 'My Account';
 $_['text_order']        = 'Order History';
 $_['text_wishlist']     = 'Wish List';
 $_['text_newsletter']   = 'Newsletter';
-$_['text_powered']      = 'Powered By <a href="#" style="color:#f36f07;font-weight: bold">Satya Soft Sol Pvt. Ltd</a> &amp; <a href="#" style="color:#f36f07;font-weight: bold">OpenCart</a><br /> %s &copy; %s';
+$_['text_powered']      = 'Powered By <a href="#" style="color:#23a1d1;font-weight: bold">Satya Soft Sol Pvt. Ltd</a> &amp; <a href="#" style="color:#23a1d1;font-weight: bold">OpenCart</a><br /> %s &copy; %s';
