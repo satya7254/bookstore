@@ -40,6 +40,7 @@ $_['entry_good']               = 'Good';
 $_['entry_bad']                = 'Bad';
 
 // Tabs
+$_['tab_documentation']        = 'Read Book';
 $_['tab_description']          = 'Description';
 $_['tab_attribute']            = 'Specification';
 $_['tab_review']               = 'Reviews (%s)';

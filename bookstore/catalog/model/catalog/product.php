@@ -526,6 +526,18 @@ class ModelCatalogProduct extends Model {
 
 		return $query->rows;
 	}
+	
+	public function getDownloads($product_id) {
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_download pd LEFT JOIN " . DB_PREFIX . "download d ON(pd.download_id=d.download_id) LEFT JOIN " . DB_PREFIX . "download_description dd ON(pd.download_id=dd.download_id) WHERE product_id = '" . (int)$product_id . "' AND dd.language_id = '" . (int)$this->config->get('config_language_id')."'");
+        return $query->rows;
+   }
+
+   public function getDownload($product_id, $download_id) {
+        $download="";
+        if($download_id!=0)$download=" AND d.download_id=".(int)$download_id;
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_download pd LEFT JOIN " . DB_PREFIX . "download d ON(pd.download_id=d.download_id) LEFT JOIN " . DB_PREFIX . "download_description dd ON(pd.download_id=dd.download_id) WHERE product_id = '" . (int)$product_id . "' ".$download." AND dd.language_id = '" . (int)$this->config->get('config_language_id')."'");
+        return $query->row;
+   }
 
 	public function getTotalProductSpecials() {
 		$query = $this->db->query("SELECT COUNT(DISTINCT ps.product_id) AS total FROM " . DB_PREFIX . "product_special ps LEFT JOIN " . DB_PREFIX . "product p ON (ps.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW()))");

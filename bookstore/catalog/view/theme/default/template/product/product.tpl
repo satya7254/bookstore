@@ -21,25 +21,17 @@
         <?php $class = 'col-sm-8'; ?>
         <?php } ?>
         <div class="<?php echo $class; ?>">
-          <?php if ($thumb || $images) { ?>
-          <ul class="thumbnails">
-            <?php if ($thumb) { ?>
-            <li><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
-            <?php } ?>
-            <?php if ($images) { ?>
-            <?php foreach ($images as $image) { ?>
-            <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
-            <?php } ?>
-            <?php } ?>
-          </ul>
-          <?php } ?>
+		  <h1 style="margin-top:0px;font-size: 25px"><?php echo $heading_title; ?></h1>
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-description" data-toggle="tab"><?php echo $tab_description; ?></a></li>
+            <li class="active"><a href="#tab-description" data-toggle="tab" style="font-weight: bold"><?php echo $tab_description; ?></a></li>
             <?php if ($attribute_groups) { ?>
-            <li><a href="#tab-specification" data-toggle="tab"><?php echo $tab_attribute; ?></a></li>
+            <li><a href="#tab-specification" data-toggle="tab" style="font-weight: bold"><?php echo $tab_attribute; ?></a></li>
+            <?php } ?>
+            <?php if ($downloads) { ?>
+            <li><a href="#tab-documentation" data-toggle="tab" style="font-weight: bold"><?php echo $tab_documentation; ?></a></li>
             <?php } ?>
             <?php if ($review_status) { ?>
-            <li><a href="#tab-review" data-toggle="tab"><?php echo $tab_review; ?></a></li>
+            <li><a href="#tab-review" data-toggle="tab" style="font-weight: bold"><?php echo $tab_review; ?></a></li>
             <?php } ?>
           </ul>
           <div class="tab-content">
@@ -65,6 +57,20 @@
               </table>
             </div>
             <?php } ?>
+            <div class="tab-pane tab-content" id="tab-documentation">
+	      <?php if ($downloads){ ?>
+	      <!-- <ul style="list-style:none;">
+	      <?php foreach($downloads as $download){ ?>
+		<li><i class="<?php echo $download['icon']; ?>"></i> <a href="<?php echo $download['href']; ?>" title="<?php echo $download['name']; ?>" ><?php echo $download['name']; ?><?php echo ($download['size'])?" (". $download['size'] .")":'';?></a></li>
+	      <?php } ?>
+	      </ul> -->
+	      <?php foreach($downloads as $download){ ?>
+	        <object height="800px" width="100%" type="application/pdf" data="<?php echo $download['href']; ?>">
+               Unable to open the book. Please try after some time
+            </object>
+	      <?php } ?>
+	      <?php } ?>	
+	    </div>
             <?php if ($review_status) { ?>
             <div class="tab-pane" id="tab-review">
               <form class="form-horizontal" id="form-review">
@@ -121,9 +127,20 @@
         <div class="<?php echo $class; ?>">
           <div class="btn-group">
             <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart"></i></button>
-            <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
+            <!-- <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button> -->
           </div>
-          <h1><?php echo $heading_title; ?></h1>
+		  <?php if ($thumb || $images) { ?>
+          <ul class="thumbnails">
+            <?php if ($thumb) { ?>
+            <li><a class="thumbnail" style="margin: 20px 60px 20px 0px" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+            <?php } ?>
+            <?php if ($images) { ?>
+            <?php foreach ($images as $image) { ?>
+            <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+            <?php } ?>
+            <?php } ?>
+          </ul>
+          <?php } ?>
           <ul class="list-unstyled">
             <?php if ($manufacturer) { ?>
             <li><?php echo $text_manufacturer; ?> <a href="<?php echo $manufacturers; ?>"><?php echo $manufacturer; ?></a></li>
@@ -312,8 +329,8 @@
               <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;"><?php echo $reviews; ?></a> / <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;"><?php echo $text_write; ?></a></p>
             <hr>
             <!-- AddThis Button BEGIN -->
-            <div class="addthis_toolbox addthis_default_style" data-url="<?php echo $share; ?>"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
-            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script>
+            <!-- <div class="addthis_toolbox addthis_default_style" data-url="<?php echo $share; ?>"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script> -->
             <!-- AddThis Button END -->
           </div>
           <?php } ?>
@@ -364,7 +381,7 @@
             <div class="button-group">
               <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span> <i class="fa fa-shopping-cart"></i></button>
               <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>
-              <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>
+              <!-- <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button> -->
             </div>
           </div>
         </div>

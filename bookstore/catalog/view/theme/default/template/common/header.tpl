@@ -18,6 +18,16 @@
 <meta name="keywords" content= "<?php echo $keywords; ?>" />
 <?php } ?>
 <script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
+
+<!-- 
+<link rel="stylesheet" href="catalog/view/javascript/pdfjs/viewer.css">
+<script type="text/javascript" src="catalog/view/javascript/pdfjs/compatibility.js"></script>
+<link rel="resource" type="application/l10n" href="catalog/view/javascript/pdfjs/locale/locale.properties">
+<script type="text/javascript" src="catalog/view/javascript/pdfjs/l10n.js"></script>
+<script type="text/javascript" src="catalog/view/javascript/pdf.js" ></script>
+<script type="text/javascript" src="catalog/view/javascript/pdfjs/viewer.js"></script>
+-->
+
 <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
 <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -66,23 +76,12 @@
     </div>
   </div>
 </nav>
-<nav id="middle">
-</nav>
 <header>
   <div class="container">
     <div class="row">
-      <div class="col-sm-4">
-        <div id="logo">
-          <?php if ($logo) { ?>
-          <a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" class="img-responsive" /></a>
-          <?php } else { ?>
-          <h1><a href="<?php echo $home; ?>"><?php echo $name; ?></a></h1>
-          <?php } ?>
-        </div>
+      <div class="col-sm-10" style="background: url('image/catalog/cropped-Banner10.png') 100% 100% no-repeat">
+        
       </div>
-      <div class="col-sm-5"><?php echo $search; ?>
-      </div>
-      <div class="col-sm-3"><?php echo $cart; ?></div>
     </div>
   </div>
 </header>
@@ -94,6 +93,8 @@
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
+        <!-- <li><A href="<?php echo $home; ?>"><?php echo $text_home; ?></a></li> -->
+        <li><A href="<?php echo "/"; ?>"><?php echo $text_home; ?></a></li>
         <?php foreach ($categories as $category) { ?>
         <?php if ($category['children']) { ?>
         <li class="dropdown"><a href="<?php echo $category['href']; ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category['name']; ?></a>
@@ -113,6 +114,7 @@
         <li><a href="<?php echo $category['href']; ?>"><?php echo $category['name']; ?></a></li>
         <?php } ?>
         <?php } ?>
+        <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
       </ul>
     </div>
   </nav>

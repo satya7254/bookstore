@@ -46,6 +46,7 @@ class ControllerCommonHeader extends Controller {
 		$this->load->language('common/header');
 
 		$data['text_home'] = $this->language->get('text_home');
+		$data['text_contact'] = $this->language->get('text_contact');
 
 		// Wishlist
 		if ($this->customer->isLogged()) {

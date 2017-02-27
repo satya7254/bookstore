@@ -467,6 +467,37 @@ class ControllerProductProduct extends Controller {
 
 			$data['recurrings'] = $this->model_catalog_product->getProfiles($this->request->get['product_id']);
 
+			$data['downloads'] = array();
+            $results = $this->model_catalog_product->getDownloads($this->request->get['product_id']);
+            
+			foreach ($results as $result) {  
+		       $size = false;
+               $file_exists = file_exists(DIR_DOWNLOAD . $result['filename']);
+               $http = preg_match('/^http/',$result['filename']);
+
+               if ($file_exists OR $http) {
+                   if ($file_exists) {
+                       $size = filesize(DIR_DOWNLOAD . $result['filename']);
+                       $i = 0;
+                       $suffix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' );
+                       
+					   while (($size / 1024) > 1) {
+                           $size = $size / 1024;
+                           $i++;
+                       }
+                    }
+
+                    $data['downloads'][] = array(
+                      'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+                      'name' => $result['name'],
+                      'size' => ($size)?round(substr($size, 0, strpos($size, '.') + 4), 2) . $suffix[$i]:false,
+                      'href' => ($http)?$result['filename']:$this->url->link('product/product/download', 'product_id='. $this->request->get['product_id']. '&download_id=' . $result['download_id']),
+                      'icon' => ($http)?'fa fa-external-link-square text-primary':'fa fa-download text-success'
+                    );
+                }
+
+            }
+		
 			$this->model_catalog_product->updateViewed($this->request->get['product_id']);
 
 			$data['column_left'] = $this->load->controller('common/column_left');
@@ -554,6 +585,55 @@ class ControllerProductProduct extends Controller {
 
 			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}
+	}
+	public function download() {
+			$this->load->model('catalog/product');
+
+			if (isset($this->request->get['download_id'])) {
+			      $download_id = $this->request->get['download_id'];
+			} else {
+			      $download_id = 0;
+			}
+
+			if (isset($this->request->get['product_id'])) {
+			      $product_id = $this->request->get['product_id'];
+			} else {
+			      $product_id = 0;
+			}
+
+			$download_info = $this->model_catalog_product->getDownload($product_id, $download_id);
+
+			if ($download_info) {
+			     $file = DIR_DOWNLOAD . $download_info['filename'];
+			     $mask = basename($download_info['mask']);
+
+			     if (!headers_sent()) {
+			           if (file_exists($file)) { 
+                            $finfo = new finfo(FILEINFO_MIME);
+                            $mime_type = $finfo->file($file);
+			                header('Content-Description: File Transfer');
+                            header('Content-Type: '.$mime_type); //application/octet-stream
+			                header('Content-Disposition: inline; filename="' . ($mask ? $mask : basename($file)) . '"');   //attachment
+			                header('Content-Transfer-Encoding: binary');
+			                header('Expires: 0');
+			                header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			                header('Pragma: public');
+			                header('Content-Length: ' . filesize($file));
+			                readfile($file, 'rb');
+
+			                //$this->model_account_download->updateRemaining($this->request->get['download_id']);
+			                exit;
+
+			            } else {
+			                exit('Error: Could not find file ' . $file . '!');
+			            }
+			    } else {
+			        exit('Error: Headers already sent out!');
+			     }
+
+			} else {
+			    $this->redirect(HTTP_SERVER . 'index.php?route=account/download');
+			}
 	}
 
 	public function review() {
