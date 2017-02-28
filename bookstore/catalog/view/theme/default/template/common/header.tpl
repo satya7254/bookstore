@@ -79,8 +79,8 @@
 <header>
   <div class="container">
     <div class="row">
-      <div class="col-sm-10" style="background: url('image/catalog/cropped-Banner10.png') 100% 100% no-repeat">
-        
+      <div class="col-md-12 bgimage">
+         <div class="bgimage-inside"></div>
       </div>
     </div>
   </div>

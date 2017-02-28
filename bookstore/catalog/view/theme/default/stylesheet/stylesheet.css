@@ -749,3 +749,12 @@ h2.price {
     background-image: none;
     background-color: #df5c39;
 }
+
+.bgimage {
+    background: url('image/header-banner.png') no-repeat center;
+    background-size: 100%;
+}
+
+.bgimage-inside {
+    padding-top: 21.80%; /* this is actually (250/1179)*100 */
+}
