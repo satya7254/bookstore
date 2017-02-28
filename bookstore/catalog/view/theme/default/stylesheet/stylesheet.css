@@ -147,11 +147,11 @@ div.required .control-label:before {
 }
 /* cart */
 #cart {
-	margin-bottom: 10px;
+	margin-bottom: 0px;
 }
 #cart > .btn {
 	font-size: 12px;
-	line-height: 18px;
+	line-height: 12px;
 	color: #FFF;
 }
 #cart.open > .btn {
@@ -751,10 +751,10 @@ h2.price {
 }
 
 .bgimage {
-    background: url('image/header-banner.png') no-repeat center;
+    background: url('/image/header-banner.png') no-repeat center;
     background-size: 100%;
 }
 
 .bgimage-inside {
-    padding-top: 21.80%; /* this is actually (250/1179)*100 */
+    padding-top: 21.75%; /* this is actually (250/1179)*100 */
 }
